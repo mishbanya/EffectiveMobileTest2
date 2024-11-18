@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListener {
+class MainFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListener {
 
     private val binding by viewBinding(FragmentSearchBinding::bind)
     private lateinit var searchViewModel: SearchViewModel

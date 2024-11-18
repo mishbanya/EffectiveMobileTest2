@@ -16,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.databinding.ActivityMainBinding
-import com.mishbanya.effectivemobiletest2.domain.main.usecase.FragmentChangeListener
 import com.mishbanya.effectivemobiletest2.viewmodels.MainViewModel
+import com.mishbanya.effectivemobiletest2domain.main.usecase.FragmentChangeListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.LinkedList
 import java.util.Locale
@@ -49,17 +49,15 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
 
         initListenerSearchButton()
         initListenerFavoritesButton()
-        initListenerCallbacksButton()
-        initListenerMessagesButton()
         initListenerProfileButton()
     }
     private fun initMainViewModel() {
-        Log.d("Hilt", "Creating MainViewMode client instance")
+        Log.d("Hilt", "Creating MainViewModel client instance")
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
     }
     private fun initListenerSearchButton(){
         labels[0].first.setOnClickListener {
-            onSearchClicked()
+            onMainClicked()
             updateLabels(0)
         }
     }
@@ -69,18 +67,6 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             updateLabels(1)
         }
     }
-    private fun initListenerCallbacksButton(){
-        labels[2].first.setOnClickListener {
-            onCallbacksClicked()
-            updateLabels(2)
-        }
-    }
-    private fun initListenerMessagesButton(){
-        labels[3].first.setOnClickListener {
-            onMessagesClicked()
-            updateLabels(3)
-        }
-    }
     private fun initListenerProfileButton(){
         labels[4].first.setOnClickListener {
             onProfileClicked()
@@ -88,9 +74,15 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
         }
     }
 
-    override fun onSearchClicked() {
+    override fun onMainClicked() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderId, SearchFragment())
+            .replace(R.id.fragmentHolderId, MainFragment())
+            .commit()
+    }
+
+    override fun onBackToMainClicked() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentHolderId, MainFragment())
             .commit()
     }
 
@@ -100,71 +92,46 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             .commit()
     }
 
-    override fun onCallbacksClicked() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderId, CallbacksFragment())
-            .commit()
-    }
-
-    override fun onMessagesClicked() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderId, MessagesFragment())
-            .commit()
-    }
-
     override fun onProfileClicked() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentHolderId, ProfileFragment())
             .commit()
     }
 
-    override fun onVacancyClicked() {
+    override fun onCourseClicked() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderId, VacancyFragment())
+            .replace(R.id.fragmentHolderId, CourseFragment())
             .commit()
     }
-
-    override fun onMoreClicked() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderId, MoreVacanciesFragment())
-            .commit()
-    }
-
 
     private fun startUpLoading() {
         greetingMessageShow()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderId, SearchFragment())
+            .replace(R.id.fragmentHolderId, MainFragment())
             .commit()
     }
     private fun setIcons(){
-        icons.add(getResources().getDrawable(R.drawable.search_active))
-        icons.add(getResources().getDrawable(R.drawable.heart_active))
-        icons.add(getResources().getDrawable(R.drawable.callbacks_active))
-        icons.add(getResources().getDrawable(R.drawable.messages_default))
+        icons.add(getResources().getDrawable(R.drawable.main_active))
+        icons.add(getResources().getDrawable(R.drawable.fav_active))
         icons.add(getResources().getDrawable(R.drawable.profile_active))
 
-        icons.add(getResources().getDrawable(R.drawable.profile_default))
-        icons.add(getResources().getDrawable(R.drawable.messages_default))
-        icons.add(getResources().getDrawable(R.drawable.callbacks_default))
-        icons.add(getResources().getDrawable(R.drawable.heart_default))
-        icons.add(getResources().getDrawable(R.drawable.search_default))
+        icons.add(getResources().getDrawable(R.drawable.profile))
+        icons.add(getResources().getDrawable(R.drawable.fav))
+        icons.add(getResources().getDrawable(R.drawable.main ))
     }
     private fun setLabels(){
         labels.add(Pair(binding.searchButton, binding.searchButtonLabel))
         labels.add(Pair(binding.favoritesButton, binding.favoritesButtonLabel))
-        labels.add(Pair(binding.callbacksButton, binding.callbacksButtonLabel))
-        labels.add(Pair(binding.messagesButton, binding.messagesButtonLabel))
         labels.add(Pair(binding.profileButton, binding.profileButtonLabel))
     }
     private fun updateLabels(id: Int){
         for(i in 0..4){
             if(id==i){
                 labels[i].first.setImageDrawable(icons[i])
-                labels[i].second.setTextColor(getResources().getColor(R.color.blue))
+                labels[i].second.setTextColor(getResources().getColor(R.color.green))
             }else{
                 labels[i].first.setImageDrawable(icons[9-i])
-                labels[i].second.setTextColor(getResources().getColor(R.color.gray4))
+                labels[i].second.setTextColor(getResources().getColor(R.color.dark_grey))
             }
         }
     }
