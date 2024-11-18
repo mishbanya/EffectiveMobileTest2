@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">EffectiveMobileTest2</string>
+    <string name="error">Что-то пошло не так...</string>
+
+    <!--Splash-->
+    <string name="welcome">Добро пожаловать!</string>
+
+    <!--Main menu-->
+    <string name="search">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="profile">Аккаунт</string>
+    <string name="course">Курс</string>
+
+    <!--Search fragment-->
+    <string name="filter">Фильтр</string>
+    <string name="no_courses">Нет курсов</string>
+
+    <!--Course item-->
+    <string name="course_title">Название</string>
+    <string name="course_desc">Описание</string>
+    <string name="course_published_date">Тогда-то</string>
+    <string name="course_price">1000 р</string>
+    <string name="course_more">Ещё...</string>
+    <string name="course_rating">5.0</string>
+
+    <!--Course fragment-->
+    <string name="course_desc_title">О курсе</string>
+    <string name="course_start">Начать курс</string>
+    <string name="course_platform">Перейти на платформу</string>
+
+</resources>
