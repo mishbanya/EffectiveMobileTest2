@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest2.presentation.viewmodels
+package com.mishbanya.effectivemobiletest2.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.mishbanya.effectivemobiletest2.domain.courses.repository.IVacanciesSaverRepository

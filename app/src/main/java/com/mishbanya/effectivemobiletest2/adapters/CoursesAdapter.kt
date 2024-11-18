@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest2.presentation.adapters
+package com.mishbanya.effectivemobiletest2.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -30,7 +30,7 @@ class CoursesAdapter @Inject constructor(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CoursesAdapter.VacancyViewHolder {
+    ): VacancyViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.course_item, parent, false)
         return VacancyViewHolder(view)
     }

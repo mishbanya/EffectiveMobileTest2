@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest2.presentation.viewmodels
+package com.mishbanya.effectivemobiletest2.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest2.presentation.views
+package com.mishbanya.effectivemobiletest2.views
 
 import android.content.Context
 import android.os.Bundle
@@ -17,8 +17,8 @@ import com.mishbanya.effectivemobiletest2.databinding.FragmentSearchBinding
 import com.mishbanya.effectivemobiletest2.domain.main.usecase.FragmentChangeListener
 import com.mishbanya.effectivemobiletest2.domain.offers.usecases.IOnOfferClickListener
 import com.mishbanya.effectivemobiletest2.domain.courses.usecases.IOnVacancyClickListener
-import com.mishbanya.effectivemobiletest2.presentation.adapters.CoursesAdapter
-import com.mishbanya.effectivemobiletest2.presentation.viewmodels.SearchViewModel
+import com.mishbanya.effectivemobiletest2.adapters.CoursesAdapter
+import com.mishbanya.effectivemobiletest2.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest2.presentation.views
+package com.mishbanya.effectivemobiletest2.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import com.mishbanya.effectivemobiletest2.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VacancyFragment : Fragment() {
+class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_course, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 }

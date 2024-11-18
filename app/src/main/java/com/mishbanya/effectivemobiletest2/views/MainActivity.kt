@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest2.presentation.views
+package com.mishbanya.effectivemobiletest2.views
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,7 +17,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.databinding.ActivityMainBinding
 import com.mishbanya.effectivemobiletest2.domain.main.usecase.FragmentChangeListener
-import com.mishbanya.effectivemobiletest2.presentation.viewmodels.MainViewModel
+import com.mishbanya.effectivemobiletest2.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.LinkedList
 import java.util.Locale
