@@ -75,10 +75,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
-    implementation(libs.room.rxjava3)
-
     implementation(libs.viewbindingpropertydelegate.full)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -96,8 +92,8 @@ dependencies {
 
     // Activity ktx
     implementation(libs.activity.ktx)
-    //Encryption
-    implementation(libs.security.crypto)
+
+    implementation("com.mishbanya:domainApp")
 }
 kapt {
     correctErrorTypes = true
