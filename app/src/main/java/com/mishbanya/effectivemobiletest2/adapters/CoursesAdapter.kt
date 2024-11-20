@@ -11,14 +11,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mishbanya.effectivemobiletest2.R
-import com.mishbanya.effectivemobiletest2.domain.common.repository.IMultipleLangRepository
-import com.mishbanya.effectivemobiletest2.domain.courses.entity.VacancyModel
-import com.mishbanya.effectivemobiletest2.domain.courses.usecases.IOnVacancyClickListener
 import javax.inject.Inject
 
 class CoursesAdapter @Inject constructor(
-    private val multipleLangRepository: IMultipleLangRepository
-) : ListAdapter<VacancyModel, CoursesAdapter.VacancyViewHolder>(VacancyDiffCallback()) {
+) : ListAdapter<CourseModel, CoursesAdapter.VacancyViewHolder>(VacancyDiffCallback()) {
 
     private lateinit var context: Context
     private lateinit var listener: IOnVacancyClickListener

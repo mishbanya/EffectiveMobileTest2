@@ -4,15 +4,10 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mishbanya.effectivemobiletest2.domain.common.entity.ResponseData
-import com.mishbanya.effectivemobiletest2.domain.common.repository.IMultipleLangRepository
-import com.mishbanya.effectivemobiletest2.domain.common.repository.IOffersAndVacanciesRepository
-import com.mishbanya.effectivemobiletest2.domain.offers.entity.OfferModel
-import com.mishbanya.effectivemobiletest2.domain.offers.repository.IOfferLinkOpenerRepository
-import com.mishbanya.effectivemobiletest2.domain.courses.entity.VacancyModel
-import com.mishbanya.effectivemobiletest2.domain.courses.repository.IChangeVacancyFavoritenessRepository
-import com.mishbanya.effectivemobiletest2.domain.courses.repository.IVacanciesGetterRepository
-import com.mishbanya.effectivemobiletest2.domain.courses.repository.IVacanciesSaverRepository
+import com.mishbanya.effectivemobiletest2domain.courses.repository.IChangeCourseFavoritenessRepository
+import com.mishbanya.effectivemobiletest2domain.courses.repository.ICoursesGetterRepository
+import com.mishbanya.effectivemobiletest2domain.courses.repository.ICoursesRepository
+import com.mishbanya.effectivemobiletest2domain.courses.repository.ICoursesSaverRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -21,28 +16,23 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val offersAndVacanciesRepository: IOffersAndVacanciesRepository,
-    private val offerLinkOpenerRepository: IOfferLinkOpenerRepository,
-    private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
-    private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository,
-    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository,
-    private val multipleLangRepository: IMultipleLangRepository
+class MainFragmentViewModel @Inject constructor(
+    private val coursesRepository: ICoursesRepository,
+    private val coursesGetterRepositoryImpl: ICoursesSaverRepository,
+    private val coursesSaverRepositoryImpl: ICoursesGetterRepository,
+    private val changeCourseFavoritenessRepository: IChangeCourseFavoritenessRepository
 ) :ViewModel() {
     private val disposables = CompositeDisposable()
-    private val _offers = MutableLiveData<List<OfferModel>?>()
-    private val _vacancies = MutableLiveData<List<VacancyModel>?>()
 
-    val offers: MutableLiveData<List<OfferModel>?>
-        get() = _offers
+    private val _courses = MutableLiveData<List<CourseModel>?>()
 
-    val vacancies: MutableLiveData<List<VacancyModel>?>
-        get() = _vacancies
+    val courses: MutableLiveData<List<CourseModel>?>
+        get() = _courses
     private fun setResponse(responseData: ResponseData?) {
         if (responseData != null) {
             _offers.value = responseData.offerModels
-            if (_vacancies.value.isNullOrEmpty()) {
-                _vacancies.value = responseData.vacancies
+            if (_courses.value.isNullOrEmpty()) {
+                _courses.value = responseData.vacancies
                 if(saveVacancies(responseData.vacancies)){
                     Log.d("VacanciesSaverRepository", "vacancies saved")
                 }
@@ -51,20 +41,20 @@ class SearchViewModel @Inject constructor(
     }
     private fun setVacancies(vacancies: List<VacancyModel>?) {
         if (vacancies != null) {
-            _vacancies.value = vacancies
+            _courses.value = vacancies
         }
     }
     private fun tryGettingVacanciesFromSP(){
         val recievedVacancies = getVacancies()
         if (!recievedVacancies.isNullOrEmpty()) {
-            _vacancies.value = recievedVacancies
+            _courses.value = recievedVacancies
         }
     }
 
-    fun getOffersAndVacancies(){
+    fun getCourses(){
         tryGettingVacanciesFromSP()
         disposables.clear()
-        val disposable = offersAndVacanciesRepository.getOffersAndVacancies()
+        val disposable = coursesRepository.getOffersAndVacancies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
@@ -90,14 +80,14 @@ class SearchViewModel @Inject constructor(
         return multipleLangRepository.multipleVacanciesLang(count)
     }
     private fun saveVacancies(vacancies: List<VacancyModel>?): Boolean {
-        return vacanciesSaverRepositoryImpl.saveVacancies(vacancies)
+        return coursesSaverRepositoryImpl.saveVacancies(vacancies)
     }
     private fun getVacancies(): List<VacancyModel>?{
-        return vacanciesGetterRepositoryImpl.getVacancies()
+        return coursesGetterRepositoryImpl.getVacancies()
     }
     fun changeFavoriteness(position: Int){
-        val vacancyList = _vacancies.value?.toList()
-        vacancyList?.get(position)?.let { changeVacancyFavoritenessRepository.changeFavoriteness(it.id) }
+        val vacancyList = _courses.value?.toList()
+        vacancyList?.get(position)?.let { changeCourseFavoritenessRepository.changeFavoriteness(it.id) }
         setVacancies(getVacancies())
     }
     fun offerClick(context: Context, position: Int) {

@@ -52,7 +52,7 @@ class FavoritesViewModel @Inject constructor(
         return null
     }
 
-    fun getVacancies(){
+    fun getCourses(){
         if(!tryGettingVacanciesFromSP().isNullOrEmpty()){
             setVacancies(tryGettingVacanciesFromSP())
             return

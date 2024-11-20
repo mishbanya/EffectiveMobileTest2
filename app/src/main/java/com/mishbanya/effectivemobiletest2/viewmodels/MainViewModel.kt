@@ -1,15 +1,15 @@
 package com.mishbanya.effectivemobiletest2.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.mishbanya.effectivemobiletest2.domain.courses.repository.IVacanciesSaverRepository
+import com.mishbanya.effectivemobiletest2domain.courses.repository.ICoursesSaverRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository
+    private val coursesSaverRepositoryImpl: ICoursesSaverRepository
 ) : ViewModel() {
     fun clearVacancies(){
-        vacanciesSaverRepositoryImpl.saveVacancies(null)
+        coursesSaverRepositoryImpl.saveCourses(null)
     }
 }

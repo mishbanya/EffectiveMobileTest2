@@ -4,11 +4,31 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/EffectiveMobileTest2domain" name="EffectiveMobileTest2domain">
+                <projects>
+                  <project path="$PROJECT_DIR$/EffectiveMobileTest2domain" />
+                  <project path="$PROJECT_DIR$/EffectiveMobileTest2domain/domainApp" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data" name="EffectiveMobileTest2data">
+                <projects>
+                  <project path="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/EffectiveMobileTest2domain" />
+            <option value="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data" />
+            <option value="$PROJECT_DIR$/EffectiveMobileTest2domain/domainApp" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
