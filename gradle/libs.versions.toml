@@ -9,6 +9,7 @@ appcompat = "1.6.1"
 material = "1.11.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
+picasso = "2.8"
 rxjava = "2.2.21"
 viewbindingpropertydelegateFull = "1.5.9"
 dagger = "2.51.1"
@@ -47,6 +48,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid" }
 rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
 viewbindingpropertydelegate-full = { group = "com.github.kirich1409", name = "viewbindingpropertydelegate-full", version.ref = "viewbindingpropertydelegateFull" }

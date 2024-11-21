@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.adapter.rxjava3)
     implementation(libs.gson)
     implementation(libs.circle.view)
+    implementation(libs.picasso)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
@@ -93,7 +94,8 @@ dependencies {
     // Activity ktx
     implementation(libs.activity.ktx)
 
-    implementation("com.mishbanya:domainApp")
+    implementation("com.mishbanya.domain:domainApp")
+    implementation("com.mishbanya.data:dataApp")
 }
 kapt {
     correctErrorTypes = true

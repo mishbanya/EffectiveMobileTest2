@@ -1,27 +1,38 @@
 package com.mishbanya.effectivemobiletest2.adapters
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mishbanya.effectivemobiletest2.R
+import com.mishbanya.effectivemobiletest2data.courses.model.CourseModel
+import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnCourseClickListener
+import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnFavoriteClickListener
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import javax.inject.Inject
 
 class CoursesAdapter @Inject constructor(
 ) : ListAdapter<CourseModel, CoursesAdapter.VacancyViewHolder>(VacancyDiffCallback()) {
 
     private lateinit var context: Context
-    private lateinit var listener: IOnVacancyClickListener
+    private lateinit var listener: IOnCourseClickListener
+    private lateinit var favListener: IOnFavoriteClickListener
 
-    fun setContextAndListener(context: Context, listener: IOnVacancyClickListener) {
+    fun setContextAndListener(context: Context, listener: IOnCourseClickListener, favListener: IOnFavoriteClickListener) {
         this.context = context
         this.listener = listener
+        this.favListener = favListener
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,63 +47,77 @@ class CoursesAdapter @Inject constructor(
         holder.bind(data)
     }
     inner class VacancyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val lookingNumber : TextView = itemView.findViewById(R.id.vacancy_looking_number)
-        private val title : TextView = itemView.findViewById(R.id.vacancy_title)
-        private val town : TextView = itemView.findViewById(R.id.vacancy_town)
-        private val company : TextView = itemView.findViewById(R.id.vacancy_company)
-        private val experience : TextView = itemView.findViewById(R.id.vacancy_experience)
-        private val publishedDate : TextView = itemView.findViewById(R.id.vacancy_published_date)
+        private val coursePreview : ConstraintLayout = itemView.findViewById(R.id.course_preview)
+        private val courseIsFavorite : ImageView = itemView.findViewById(R.id.course_is_favorite)
+        private val courseRating : TextView = itemView.findViewById(R.id.course_rating)
+        private val courseTime : TextView = itemView.findViewById(R.id.course_time)
+        private val courseTitle : TextView = itemView.findViewById(R.id.course_title)
+        private val courseDesc : TextView = itemView.findViewById(R.id.course_desc)
 
-        private val vacancyButton : Button = itemView.findViewById(R.id.vacancy_button)
-        private val isFavorite : ImageView = itemView.findViewById(R.id.vacancy_is_favorite)
+        private val courseButton : Button = itemView.findViewById(R.id.course_button)
+        private val coursePrice : TextView = itemView.findViewById(R.id.course_price)
 
         init {
-            vacancyButton.setOnClickListener {
+            courseButton.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    listener.onVacancyClick(position)
+                    listener.onCourseClick(position)
                 }
             }
-            isFavorite.setOnClickListener {
+            courseIsFavorite.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    listener.onIsFavoriteClick(position)
+                    favListener.onIsFavoriteClick(position)
                 }
             }
         }
 
-        fun bind(data: VacancyModel){
-            title.text = data.title
-            town.text = data.addressModel.town
-            company.text = data.company
-            experience.text = data.experienceModel.previewText
-
-            if(data.lookingNumber!=null) {
-                lookingNumber.text = "Сейчас просматривает ${multipleLangRepository.multiplePeopleLang(data.lookingNumber)}"
-            }else{
-                lookingNumber.visibility = View.INVISIBLE
-            }
-            publishedDate.text = "Опубликовано ${data.publishedDate}"
+        fun bind(data: CourseModel){
+            data.cover?.let { setPreview(it) }
+            courseTitle.text = data.title
+            courseRating.text = data.rating.toString()
+            courseTime.text = data.becamePublishedAt.toString()
+            courseDesc.text = data.description
+            coursePrice.text = data.price.toString()
 
             if (data.isFavorite){
-                isFavorite.setImageResource(R.drawable.heart_active)
+                courseIsFavorite.setImageResource(R.drawable.bookmark_fill)
             }else{
-                isFavorite.setImageResource(R.drawable.heart_default)
+                courseIsFavorite.setImageResource(R.drawable.bookmark)
             }
+        }
+
+        private fun setPreview(url: String){
+            Picasso.get()
+                .load(url)
+                .into(object : Target {
+                    override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                        val drawable = BitmapDrawable(context.resources, bitmap)
+                        coursePreview.background = drawable
+                    }
+
+                    override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                        coursePreview.background = errorDrawable
+                    }
+
+                    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                        coursePreview.background = placeHolderDrawable
+                    }
+                })
         }
     }
 
-    class VacancyDiffCallback : DiffUtil.ItemCallback<VacancyModel>()  {
-        override fun areItemsTheSame(oldItem: VacancyModel, newItem: VacancyModel): Boolean {
+    class VacancyDiffCallback : DiffUtil.ItemCallback<CourseModel>()  {
+        override fun areItemsTheSame(oldItem: CourseModel, newItem: CourseModel): Boolean {
             return oldItem.title == newItem.title
         }
 
-        override fun areContentsTheSame(oldItem: VacancyModel, newItem: VacancyModel): Boolean {
+        override fun areContentsTheSame(oldItem: CourseModel, newItem: CourseModel): Boolean {
             return oldItem == newItem
         }
     }
 
-    fun reload(data: List<VacancyModel>){
+    fun reload(data: List<CourseModel>){
         submitList(data)
     }
 }

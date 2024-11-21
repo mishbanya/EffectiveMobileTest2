@@ -2,10 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="EffectiveMobileTest2data.dataApp">
+        <State />
+      </entry>
       <entry key="EffectiveMobileTest2domain.domainApp">
         <State />
       </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="com.mishbanya.EffectiveMobileTest2data.dataApp">
         <State />
       </entry>
     </value>

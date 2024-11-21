@@ -15,7 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.adapters.CoursesAdapter
 import com.mishbanya.effectivemobiletest2.databinding.FragmentMainBinding
-import com.mishbanya.effectivemobiletest2.viewmodels.MainFragmentViewModel
+import com.mishbanya.effectivemobiletest2domain.viewmodels.MainFragmentViewModel
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnCourseClickListener
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnFavoriteClickListener
 import com.mishbanya.effectivemobiletest2domain.main.usecase.FragmentChangeListener
@@ -23,10 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment @Inject constructor(
-    private val coursesAdapter: CoursesAdapter
-) : Fragment(), IOnFavoriteClickListener, IOnCourseClickListener {
+class MainFragment: Fragment(), IOnFavoriteClickListener, IOnCourseClickListener {
 
+    private val coursesAdapter: CoursesAdapter = CoursesAdapter()
     private val binding by viewBinding(FragmentMainBinding::bind)
     private lateinit var mainViewModel: MainFragmentViewModel
 
@@ -69,7 +68,7 @@ class MainFragment @Inject constructor(
     private fun initRecyclerView(){
         coursesRecyclerView = binding.coursesRv
         coursesRecyclerView.layoutManager = LinearLayoutManager(context)
-        coursesAdapter.setContextAndListener(requireContext(), this)
+        coursesAdapter.setContextAndListener(requireContext(), this, this)
         coursesRecyclerView.adapter = coursesAdapter
     }
     private fun initSearchViewModel() {

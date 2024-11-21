@@ -16,6 +16,7 @@
               <build path="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data" name="EffectiveMobileTest2data">
                 <projects>
                   <project path="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data" />
+                  <project path="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data/dataApp" />
                 </projects>
               </build>
             </builds>
@@ -28,6 +29,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/EffectiveMobileTest2domain" />
             <option value="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data" />
+            <option value="$PROJECT_DIR$/EffectiveMobileTest2domain/EffectiveMobileTest2data/dataApp" />
             <option value="$PROJECT_DIR$/EffectiveMobileTest2domain/domainApp" />
             <option value="$PROJECT_DIR$/app" />
           </set>

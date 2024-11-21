@@ -15,7 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.databinding.FragmentFavoritesBinding
 import com.mishbanya.effectivemobiletest2.adapters.CoursesAdapter
-import com.mishbanya.effectivemobiletest2.viewmodels.FavoritesViewModel
+import com.mishbanya.effectivemobiletest2domain.viewmodels.FavoritesViewModel
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnCourseClickListener
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnFavoriteClickListener
 import com.mishbanya.effectivemobiletest2domain.main.usecase.FragmentChangeListener
@@ -66,7 +66,7 @@ class FavoritesFragment : Fragment(), IOnCourseClickListener, IOnFavoriteClickLi
     private fun initRecyclerView(){
         favoriteCoursesRecyclerView = binding.favoriteCoursesRv
         favoriteCoursesRecyclerView.layoutManager = LinearLayoutManager(context)
-        favoriteCoursesAdapter.setContextAndListener(requireContext(), this)
+        favoriteCoursesAdapter.setContextAndListener(requireContext(), this, this)
         favoriteCoursesRecyclerView.adapter = favoriteCoursesAdapter
     }
     private fun initFavoritesViewModel() {

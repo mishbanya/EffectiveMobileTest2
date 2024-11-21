@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.databinding.ActivityMainBinding
-import com.mishbanya.effectivemobiletest2.viewmodels.MainViewModel
+import com.mishbanya.effectivemobiletest2domain.viewmodels.MainViewModel
 import com.mishbanya.effectivemobiletest2domain.main.usecase.FragmentChangeListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.LinkedList
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             .commit()
     }
 
-    override fun onCourseClicked() {
+    override fun onCourseClicked(position: Int) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentHolderId, CourseFragment())
             .commit()
