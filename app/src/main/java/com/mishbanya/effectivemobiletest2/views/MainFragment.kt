@@ -15,6 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.adapters.CoursesAdapter
 import com.mishbanya.effectivemobiletest2.databinding.FragmentMainBinding
+import com.mishbanya.effectivemobiletest2data.courses.model.CourseModel
 import com.mishbanya.effectivemobiletest2domain.viewmodels.MainFragmentViewModel
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnCourseClickListener
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnFavoriteClickListener
@@ -58,8 +59,8 @@ class MainFragment: Fragment(), IOnFavoriteClickListener, IOnCourseClickListener
         mainViewModel.getCourses()
     }
 
-    override fun onCourseClick(position: Int) {
-        searchListener.onCourseClicked(position)
+    override fun onCourseClick(data: CourseModel) {
+        searchListener.onCourseClicked(data)
     }
 
     override fun onIsFavoriteClick(position: Int) {
@@ -83,8 +84,7 @@ class MainFragment: Fragment(), IOnFavoriteClickListener, IOnCourseClickListener
                     activity?.let { showToast(it.getString(R.string.no_courses)) }
                 }
                 coursesAdapter.reload(data)
-            }
-            else{
+            } else{
                 showError()
             }
         }

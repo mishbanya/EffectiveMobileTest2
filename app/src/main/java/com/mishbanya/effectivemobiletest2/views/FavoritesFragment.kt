@@ -15,6 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.databinding.FragmentFavoritesBinding
 import com.mishbanya.effectivemobiletest2.adapters.CoursesAdapter
+import com.mishbanya.effectivemobiletest2data.courses.model.CourseModel
 import com.mishbanya.effectivemobiletest2domain.viewmodels.FavoritesViewModel
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnCourseClickListener
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnFavoriteClickListener
@@ -56,8 +57,8 @@ class FavoritesFragment : Fragment(), IOnCourseClickListener, IOnFavoriteClickLi
         loadCourses()
     }
 
-    override fun onCourseClick(position: Int) {
-        favoriteCoursesListener.onCourseClicked(position)
+    override fun onCourseClick(data: CourseModel) {
+        favoriteCoursesListener.onCourseClicked(data)
     }
 
     override fun onIsFavoriteClick(position: Int) {
@@ -74,7 +75,7 @@ class FavoritesFragment : Fragment(), IOnCourseClickListener, IOnFavoriteClickLi
         favoritesViewModel = ViewModelProvider(this)[FavoritesViewModel::class.java]
     }
     private fun initObserversFavoritesViewModel() {
-        favoritesViewModel.favoriteVacancies.observe(viewLifecycleOwner){ data->
+        favoritesViewModel.favoriteCourses.observe(viewLifecycleOwner){ data->
 
             if (data != null) {
                 if (data.isEmpty()){

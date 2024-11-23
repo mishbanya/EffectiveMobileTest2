@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest2.R
 import com.mishbanya.effectivemobiletest2.databinding.ActivityMainBinding
+import com.mishbanya.effectivemobiletest2data.courses.model.CourseModel
 import com.mishbanya.effectivemobiletest2domain.viewmodels.MainViewModel
 import com.mishbanya.effectivemobiletest2domain.main.usecase.FragmentChangeListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
         }
     }
     private fun initListenerProfileButton(){
-        labels[4].first.setOnClickListener {
+        labels[2].first.setOnClickListener {
             onProfileClicked()
             updateLabels(4)
         }
@@ -98,9 +99,9 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             .commit()
     }
 
-    override fun onCourseClicked(position: Int) {
+    override fun onCourseClicked(data: CourseModel) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderId, CourseFragment())
+            .replace(R.id.fragmentHolderId, CourseFragment(data))
             .commit()
     }
 
@@ -125,12 +126,12 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
         labels.add(Pair(binding.profileButton, binding.profileButtonLabel))
     }
     private fun updateLabels(id: Int){
-        for(i in 0..4){
+        for(i in 0..2){
             if(id==i){
                 labels[i].first.setImageDrawable(icons[i])
                 labels[i].second.setTextColor(getResources().getColor(R.color.green))
             }else{
-                labels[i].first.setImageDrawable(icons[9-i])
+                labels[i].first.setImageDrawable(icons[5-i])
                 labels[i].second.setTextColor(getResources().getColor(R.color.dark_grey))
             }
         }

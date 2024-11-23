@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,8 @@ import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnCourseClickL
 import com.mishbanya.effectivemobiletest2domain.courses.usecases.IOnFavoriteClickListener
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
+import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 class CoursesAdapter @Inject constructor(
@@ -58,12 +61,6 @@ class CoursesAdapter @Inject constructor(
         private val coursePrice : TextView = itemView.findViewById(R.id.course_price)
 
         init {
-            courseButton.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onCourseClick(position)
-                }
-            }
             courseIsFavorite.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
@@ -75,15 +72,24 @@ class CoursesAdapter @Inject constructor(
         fun bind(data: CourseModel){
             data.cover?.let { setPreview(it) }
             courseTitle.text = data.title
-            courseRating.text = data.rating.toString()
-            courseTime.text = data.becamePublishedAt.toString()
-            courseDesc.text = data.description
-            coursePrice.text = data.price.toString()
+            courseRating.text = data.rating?.toString() ?: "5.0"
+            courseTime.text = data.becamePublishedAt?.let { date ->
+                val formatter = SimpleDateFormat("dd MMM", Locale.getDefault())
+                formatter.format(date)
+            } ?: "Unknown date"
+            val rawText: String = Html.fromHtml(data.description, Html.FROM_HTML_MODE_LEGACY).toString()
+            courseDesc.text = rawText.trim()
+            coursePrice.text = data.price?.toString() ?: "Бесплатно"
 
             if (data.isFavorite){
                 courseIsFavorite.setImageResource(R.drawable.bookmark_fill)
             }else{
                 courseIsFavorite.setImageResource(R.drawable.bookmark)
+            }
+
+
+            courseButton.setOnClickListener {
+                listener.onCourseClick(data)
             }
         }
 
